@@ -1,50 +1,73 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('layouts.task-manager')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('content')
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+    <header>
+        <div class="logout"><a href="/auth/logout">Sign Out</a></div>
+        <div class="title">Welcome, {{ Auth::user()->name }}</div>
+    </header>
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+    <div class="container">
+    <div class="card">
+        <div class="card-header">
+            Add Task
+        </div>
+        <div class="card-body">
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+            <!-- New Task Form -->
+            <form action="/task" method="POST" class="form-horizontal">
+                {{ csrf_field() }}
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+                <!-- Task Name -->
+                <div class="form-group">
+                    <label for="task-title" class="col-sm-3 control-label">Title</label>
 
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Welcome, {{ Auth::user()->name }}</div>
-                <div class="tasks">
-                    @foreach ($tasks as $task)
-                        <p>{{ $task->title }}</p>
-                    @endforeach
+                    <div class="col-sm-6">
+                        <input type="text" name="title" id="task-title" class="form-control">
+                    </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="task-name" class="col-sm-3 control-label">Description</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" name="description" id="task-description" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Add Task Button -->
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fa fa-plus"></i> Add 
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Current Tasks
+        </div>
+        <div class="card-body">
+            <div class="list-group">
+                @if (count($tasks) == 0)
+                    <div class="list-group-item">Please add a new task</div>
+                @endif
+                @foreach ($tasks as $task)
+                    <div class="list-group-item flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><a href="#">{{ $task->title }}</a></h5>
+                            <button type="button" class="btn btn-link btn-remove"><i class="fa fa-trash-alt"></i></button>
+                        </div>
+                        <p class="mb-1">{{ $task->description }}</p>
+                    </div>
+                @endforeach
             </div>
         </div>
-    </body>
-</html>
+    </div>
+    </div>
+
+@endsection

@@ -11,14 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
  * Default route after sign in or sign up
  */
 Route::get('home', 'TaskController@index');
+Route::get('/', 'TaskController@index');
 
 // Authentication Routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
