@@ -21,7 +21,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Display current user's tasks
+     * Display task manager home view
      *
      * @param  Request  $request
      * @return Response

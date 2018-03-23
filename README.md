@@ -43,4 +43,4 @@ Initially I had set out to use React and install dependencies via NPM. Webpack w
 
 # Design considerations
 
-Since I took advantage of Laravel's built-in authentication, I decided to make my app only show tasks for the logged in user, with the option to create multiple accounts. Given some more time, I would definitely like to add support for a super user that can assign tasks for various users and the support for categories. That and the ability to drag and drop sort tasks etc.
+Since I took advantage of Laravel's built-in authentication, I decided to make my app only show tasks for the logged in user, with the option to create multiple accounts. Given some more time, I would definitely like to add support for a super user that can assign tasks for various users and the support for categories. That and the ability to drag and drop sort tasks etc. There is also more to be done in the way of input validation and error handling, but it's off to a good start.
