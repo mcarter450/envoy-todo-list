@@ -7,7 +7,7 @@ $ composer install
 ```
 
 # Create MySQL database and 'homestead' user
-## For users that do have Homestead set up
+## For users that do not have Homestead set up
 
 `$ mysql -u root -p`
 
