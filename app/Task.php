@@ -15,11 +15,15 @@ class Task extends Model
 
     /**
      * Automatically set timestamps on creation
+     *
+     * @var boolean
      */
     public $timestamps = true;
 
     /**
      * Get user that owns the task
+     *
+     * @return User
      */
     public function user()
     {
