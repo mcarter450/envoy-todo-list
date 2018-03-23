@@ -17,6 +17,7 @@
 
                     <div class="col-sm-6">
                         <input ref="title" ype="text" name="title" id="task-title" class="form-control">
+                        <if={ errors.title != '' } small class="form-text text-danger">{ errors.title }</small>
                     </div>
                 </div>
 
@@ -25,6 +26,7 @@
 
                     <div class="col-sm-6">
                         <input ref="description" type="text" name="description" id="task-description" class="form-control">
+                        <if={ errors.description != '' } small class="form-text text-danger">{ errors.description }</small>
                     </div>
                 </div>
 
@@ -63,6 +65,11 @@
 
         me.items = [];
 
+        me.errors = {
+            title: '',
+            description: ''
+        };
+
         me.on('mount', function() {
             // right after the tag is mounted on the page
             $.get('/tasks', function(collection) {
@@ -81,10 +88,20 @@
         add(e) {
             e.preventDefault();
 
-            var btnEl = $(me.refs.btnAdd);
+            // remove highlight from add button
+            $(me.refs.btnAdd).blur(); 
+
             var action = $(e.target).attr('action');
             var title = me.refs.title.value;
             var description = me.refs.description.value;
+
+            if (title == '') me.errors.title = 'The title field is required.';
+            else me.errors.title = '';
+
+            if (description == '') me.errors.description = 'The description field is required.';
+            else me.errors.description = '';
+
+            if (me.errors.title != '' || me.errors.description != '') return;
 
             $.post(action, {
                 title: title,
@@ -97,9 +114,6 @@
                 // clear form fields
                 me.refs.title.value = '';
                 me.refs.description.value = '';
-
-                // remove highlight from add button
-                btnEl.blur(); 
 
                 me.update();
             });
